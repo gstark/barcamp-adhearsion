@@ -1,0 +1,27 @@
+
+How to get going with asterisk:
+
+Get a vonage phone, and add on a SOFTPHONE option.
+
+Download the asterisk version 1.4.21.1 (or later?)  For the BarCamp demo app I used 1.4.21.1
+ - Standard untar, ./configure, make, make install  seems to work equally well under Mac OS X and Linux
+
+Download and install a voice from Cepstral (www.cepstral.com).  The eval/demo voices work but will prefix every phrase with a "This is not licensed" nag.  Make sure you download and install the correct voice for your OS.  You must download and install the voice before app_swift.
+
+Download, configure, make, make install app_swift from http://www.loopfree.net/app_swift/
+
+Backup all the files in /etc/asterisk and replace them with the few I have in config/asterisk_etc_asterisk  Update the sip.conf with your phone number and password.  Update swift.conf with the name of the voice you downloaded from Cepstral. Note that the frequency is included (example:  William-8k)
+
+Download and install the LATEST version of adhearsion (at least as of 10-11-2008 when I gave the BarCamp talk)  You'll need Ruby 1.8.6 or later first, then you should also install rubygems.  adhearsion will require (perhaps as root)
+	gem install log4r
+	gem install rubigen
+	gem install activesupport (may not be necessary if you have rails installed)
+
+The best way to debug is to open two windows:
+	1) asterisk -v -v -v -v   (for very verbose, make sure the swift library runs.  If it doesn't you may need to    export LD_LIBRARY_PATH=/opt/swift/lib )
+	2) ahn start barcamp-adhearsion (in the parent directory)
+
+To create a new adhearsion app:   ahn create /path/to/directory
+
+If you need the speak_swift command ensure the module Adhearsion from my sample startup.rb is present in your startup.rb
+
